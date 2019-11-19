@@ -1,9 +1,10 @@
 from flask import Flask, request
 # from getRequests import exact, union, intersection
-# from postRequests import add, delete
+from src.postRequests import update_doc
 
 
 app = Flask(__name__)
+
 '''
 @params: http header
 @returns: Json response with list of doc-ids, tf-idf score
@@ -11,9 +12,9 @@ app = Flask(__name__)
               match with the query
 @throws: returns with response 400 if any error occurs
 '''
-@app.route('/releventDocs', methods=['POST'])
+@app.route('/relevantDocs', methods=['POST'])
 def get_docs():
-    pass
+    return 'Todo..'
 
 # '''
 # @params: None
@@ -60,18 +61,10 @@ def get_docs():
 '''
 @app.route('/update', methods=['POST'])
 def update():
-    pass
+    params = request.args
+    json = request.json
+    return update_doc(params['docID'], json)
 
-# '''
-# @params: None
-# @returns: Json response with list of doc-ids, tf-idf score
-# @description: removes the doc-id and associated transformed text
-# @throws: returns with response 400 if any error occurs
-# '''
-# @app.route('/remove')
-# def remove_document():
-#     remove(docID)
-#     return 'Todo...'
 
 if __name__ == '__main__':
     app.run(debug=True)
