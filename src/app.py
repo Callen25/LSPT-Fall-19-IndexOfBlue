@@ -1,6 +1,9 @@
 from flask import Flask, request
 # from getRequests import exact, union, intersection
-# from postRequests import add, delete
+from src.postRequests import update_doc
+
+
+app = Flask(__name__)
 
 '''
 @params: http header
@@ -9,10 +12,9 @@ from flask import Flask, request
               match with the query
 @throws: returns with response 400 if any error occurs
 '''
-@app.route('/releventDocs')
-def exact_match():
-    exact()
-    return 'Todo...'
+@app.route('/relevantDocs', methods=['POST'])
+def get_docs():
+    return 'Todo..'
 
 # '''
 # @params: None
@@ -57,18 +59,12 @@ def exact_match():
 @description: adds the new doc-id with transformed text
 @throws: returns with response 400 if any error occurs
 '''
-@app.route('/update')
-def add_document():
-    #add(docID)
-    return 'Todo...'
+@app.route('/update', methods=['POST'])
+def update():
+    params = request.args
+    json = request.json
+    return update_doc(params['docID'], json)
 
-# '''
-# @params: None
-# @returns: Json response with list of doc-ids, tf-idf score
-# @description: removes the doc-id and associated transformed text
-# @throws: returns with response 400 if any error occurs
-# '''
-# @app.route('/remove')
-# def remove_document():
-#     remove(docID)
-#     return 'Todo...'
+
+if __name__ == '__main__':
+    app.run(debug=True)
