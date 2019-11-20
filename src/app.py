@@ -54,16 +54,14 @@ def get_docs():
 #     return 'Todo...'
 
 '''
-@params: None
-@returns: 200 ok if the document was added to the index
+@params: None, takes in body of POST
+@returns: 201 created if the document was updated successfully
 @description: adds the new doc-id with transformed text
 @throws: returns with response 400 if any error occurs
 '''
 @app.route('/update', methods=['POST'])
 def update():
-    params = request.args
-    json = request.json
-    return update_doc(params['docID'], json)
+    return update_doc(request.args['docID'], request.json['old'], request.json['new'])
 
 
 if __name__ == '__main__':
