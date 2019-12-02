@@ -31,12 +31,14 @@ def remove_doc(doc_id, words):
     with index.pipeline() as index_pipe, term_positions.pipeline() as term_pipe:
         for word in words:
             # Remove id for word in word -> doc_id mapping, if word only appears in this document then remove word
-            if index.zcard(word) > 1:
-                index_pipe.zrem(word, doc_id)
-            else:
-                index_pipe.delete(word)
+            if index.exists(word):
+                if index.zcard(word) > 1:
+                    index_pipe.zrem(word, doc_id)
+                else:
+                    index_pipe.delete(word)
             # Remove word and its associated positions within the document
-            term_pipe.delete(f"{doc_id}:{word}")
+            if term_positions.exists(f"{doc_id}:{word}"):
+                term_pipe.delete(f"{doc_id}:{word}")
 
         index_pipe.execute()
         term_pipe.execute()

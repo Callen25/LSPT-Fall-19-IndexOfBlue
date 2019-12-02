@@ -1,6 +1,6 @@
 from flask import Flask, request
 # from getRequests import exact, union, intersection
-from src.postRequests import update_doc
+from postRequests import update_doc
 
 
 app = Flask(__name__)
