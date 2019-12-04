@@ -15,6 +15,11 @@ def update_doc(app, doc_id, old_doc, new_doc):
     if new_doc:
         # If there is a new doc to add, add the words and their tf scores
         add_doc(app, doc_id, new_doc['grams']['1'], new_doc['total'])
+
+    if old_doc and not new_doc:
+        app.index.decr('total_docs')
+    elif new_doc and not old_doc:
+        app.index.incr('total_docs')
     return Response(f"Document: {doc_id}, successfully updated", status=201, mimetype='application/json')
 
 
