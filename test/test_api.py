@@ -1,23 +1,27 @@
-import pytest_redis
 import pytest
-from app import app
-from mock import MagicMock, patch
+from indexapp import create_app
 import json
 
 
 @pytest.fixture
 def client():
-    app.config['TESTING'] = True
+    """
+    This creates a client specifically for testing purposes. This client is
+    initialized with a mock version of redis, so that code using redis is not
+    affected by unit tests.
+    """
+    app = create_app({'TESTING': True})
 
     with app.test_client() as client:
         yield client
 
 
 def test_basic_update(client):
-    @patch('Redis.zadd', )
-    """Start with a blank database."""
-
-    json_file = open('test_files/update_sample1.json')
+    """
+    This test ensures that the correct http satus code is returned for a basic
+    index update.
+    """
+    json_file = open('../test/test_files/update_sample1.json')
     json_data = json.load(json_file)
 
     update = client.post('/update?docID=3', json=json_data)

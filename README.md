@@ -4,7 +4,17 @@
 
 To install all the necessary packages, run **pip install -r requirements.txt**. (We recommend using a virtual environment)
 
-To run locally, redis needs to be installed. Details about doing so can be seen [here](https://redis.io/topics/quickstart)
+To run locally, Redis needs to be installed. Details about doing so can be seen [here](https://redis.io/topics/quickstart)
+
+Once Redis is installed, run it with **redis-server** (it should be running on port 6379)
+
+In the indexapp directory set the Flask App with **FLASK_APP=__init__**
+
+Then run with **flask run**
+
+This should work with other services, it runs on port 5000 by default
+
+To run unit tests, navigate to the /test directory and run **pytest**
 
 ## API Reference
 
