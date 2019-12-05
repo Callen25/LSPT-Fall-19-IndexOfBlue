@@ -23,8 +23,10 @@ def create_app(test_config=None):
         # Same db's as above, but the mock_redis version
         main_app.index = mock_redis_client(host='localhost', port=6379, db=0)
         main_app.term_positions = mock_redis_client(host='localhost', port=6379, db=1)
+        # Specify that we are in testing config for debugging
         main_app.config['TESTING'] = True
 
+    # Tells this instance of flask where are endpoints are
     main_app.register_blueprint(bp)
 
     return main_app

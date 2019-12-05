@@ -1,5 +1,6 @@
 from flask import Blueprint, current_app, request
 from .update import update_doc
+from .retrieve import retrieve_docs
 
 app = current_app
 
@@ -15,7 +16,7 @@ def get_docs():
                   match with the query
     @throws: returns with response 400 if any error occurs
     """
-    return 'Todo..'
+    return retrieve_docs(app, request.json)
 
 
 @bp.route('/update', methods=['POST'])
