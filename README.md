@@ -27,7 +27,7 @@ We use conventional http response codes, in general: codes in the 2xx range indi
 
 ### Update
 
-Use this endpoint to add / remove / update existsing a document the in index
+Use this endpoint to add, remove, and update an existsing document the in index
 
 Request type | Endpoint | Arguments | body type
 ------------ | -------------|-------|----------
@@ -86,13 +86,14 @@ JSON BODY EXAMPE
 
 ### Retrieve from index
 
-This endpoint is used to get relevent documents based on a list of ngrams
+This endpoint is used to get relevent documents based on a list of ngrams as requested by Ranking
 
 
 Request type | Endpoint | body type
 ------------ | -------------|-----
 POST | /releventDocs | JSON
 
+POST Body:
 ```
 {
 	[
@@ -103,7 +104,7 @@ POST | /releventDocs | JSON
 }
 ```
 
-Response
+Response:
 ```
 {
    “NGRAM1”:
