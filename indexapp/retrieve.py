@@ -1,4 +1,5 @@
 from flask import jsonify
+from os import sys
 
 
 def retrieve_docs(app, queries):
@@ -17,7 +18,6 @@ def retrieve_docs(app, queries):
 
     return jsonify(results)
 
-
 def retrieve_for_query(app, query):
     """
     This takes in a specific query and finds all of the exact matches for it.
@@ -26,6 +26,7 @@ def retrieve_for_query(app, query):
     @return: A dictionary of doc_id -> (tf-idf, list of positions)
     """
     words = query.split()  # Terms that we are checking the index for
+    sys.stderr.write("world\n")(app.index.get('total_docs'))
     total_docs = int(app.index.get('total_docs'))  # This is used in idf calc
     doc_to_pos = {}  # HashTable that holds doc_id -> (tf-idf, list of positions)
 
