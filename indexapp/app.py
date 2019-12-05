@@ -16,7 +16,7 @@ def get_docs():
                   match with the query
     @throws: returns with response 400 if any error occurs
     """
-    return retrieve_docs(app, request.json['queries'])
+    return retrieve_docs(app, request.json)
 
 
 @bp.route('/update', methods=['POST'])
