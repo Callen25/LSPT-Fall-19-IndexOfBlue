@@ -1,6 +1,6 @@
 from flask import Flask
 from redis import Redis
-from mockredis import mock_redis_client
+from fakeredis import FakeRedis
 from indexapp.app import bp
 
 
@@ -21,8 +21,8 @@ def create_app(test_config=None):
         main_app.term_positions = Redis(host='localhost', port=6379, db=1)
     else:
         # Same db's as above, but the mock_redis version
-        main_app.index = mock_redis_client(host='localhost', port=6379, db=0)
-        main_app.term_positions = mock_redis_client(host='localhost', port=6379, db=1)
+        main_app.index = FakeRedis(host='localhost', port=6379, db=0)
+        main_app.term_positions = FakeRedis(host='localhost', port=6379, db=1)
         # sets the initial value total docs for tf-idf
         main_app.index.set("total_docs", 0)
         # Specify that we are in testing config for debugging
