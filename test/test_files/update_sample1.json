@@ -1,0 +1,41 @@
+{
+	"old": {
+		"stripped": "old text here lets delete this",
+		"total": 6,
+		"grams": {
+			"1": {
+				"old": [0],
+				"text": [1],
+				"here": [2],
+				"lets": [3],
+				"delete": [4],
+				"this": [5]
+			}
+		}
+	},
+	"new": {
+		"stripped": "ebook use anyone anywhere united States most other parts world no cost with almost no restrictions whatsoever",
+		"total": 17,
+		"grams": {
+			"1": {
+				"ebook": [0],
+				"use": [1],
+				"anyone": [2],
+				"anywhere": [3],
+				"united": [4],
+				"states": [5],
+				"most": [6],
+				"other": [7],
+				"parts": [8],
+				"world": [9],
+				"no": [10, 14],
+				"cost": [11],
+				"with": [12],
+				"almost": [13],
+				"restrictions": [15],
+				"whatsoever": [16]
+			}
+		},
+		"title": "Hello World"
+	}
+}
