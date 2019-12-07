@@ -43,8 +43,19 @@ def test_basic_retrieve(client):
     json_data = json.load(json_file)
 
     retrieve = client.post('/relevantDocs', json=json_data)
-
     assert retrieve.status_code == 200
+
+def test_basic_retrieve_correctness(client):
+    json_file = open('../test/test_docs/doc1.json')
+    json_data = json.load(json_file)
+
+    client.post('/update?docID=3', json=json_data)
+
+    json_file = open('../test/test_files/doc1_retrieve_test.json')
+    json_data = json.load(json_file)
+
+    retrieve = client.post('/relevantDocs', json=json_data)
+    assert retrieve.json['fish sand'][0] == 1
 
 # def test_add_success(client):
 #     doc1 = "./test_docs/doc1.txt"
