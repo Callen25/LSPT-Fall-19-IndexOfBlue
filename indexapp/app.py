@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app, request
+from flask import Blueprint, current_app, request, Response
 from .update import update_doc
 from .retrieve import retrieve_docs
 
@@ -16,7 +16,10 @@ def get_docs():
                   match with the query
     @throws: returns with response 400 if any error occurs
     """
-    return retrieve_docs(app, request.json)
+    try:
+        return retrieve_docs(app, request.json)
+    except KeyError:
+        return Response("Bad Request: Invalid Format", status=400, mimetype='application/json')
 
 
 @bp.route('/update', methods=['POST'])
@@ -27,4 +30,8 @@ def update():
     @description: adds the new doc-id with transformed text
     @throws: returns with response 400 if any error occurs
     """
-    return update_doc(app, request.args['docID'], request.json['old'], request.json['new'])
+    try:
+        return update_doc(app, request.args['docID'], request.json['old'], request.json['new'])
+    except KeyError:
+        return Response("Bad Request: Invalid Format", status=400, mimetype='application/json')
+
