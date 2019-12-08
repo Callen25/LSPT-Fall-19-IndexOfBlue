@@ -15,17 +15,17 @@ def client():
     with app.test_client() as client:
         yield client
 
+
 def make_mock(client):
     """
     function that gets called before each test to create the mock redis
     using the json files in test_docs folder.
     """
     for i in range(6):
-        fname = "doc" + str(i + 1) + ".json"
-        json_file = open("../test/test_docs/"+fname)
+        json_file = open(f"../test/test_docs/doc{i + 1}.json")
         json_data = json.load(json_file)
-        client.post('/update?docID='+str(i+1), json=json_data)
-    return
+        post = client.post(f"/update?docID={i + 1}", json=json_data)
+        print(post.status_code)
 
 
 def test_single_doc(client):
@@ -71,6 +71,7 @@ def test_multi_none(client):
     retrieve = client.post('/relevantDocs', json=json_data)
     assert len(retrieve.json['abc def']) == 0
 
+
 def test_ngram_single_word_all(client):
     """
     Tests for single word appearing in all docs
@@ -109,6 +110,7 @@ def test_ngram_none(client):
     retrieve = client.post('/relevantDocs', json=json_data)
     assert len(retrieve.json['abcd']) == 0
 
+
 def test_ngram_multi_word(client):
     """
     Tests query with multiple ngrams appearing in
@@ -134,5 +136,13 @@ def test_ngram_multi_word_none(client):
     json_data = json.load(json_file)
 
     retrieve = client.post('/relevantDocs', json=json_data)
-    print(retrieve.json)
     assert len(retrieve.json['Abc def']) == 0
+
+
+def test_total_docs_update(client):
+    """
+    This test ensures that when new documents are added, the total_docs count
+    is incremented
+    """
+    make_mock(client)
+    assert int(client.application.index.get('total_docs')) == 6

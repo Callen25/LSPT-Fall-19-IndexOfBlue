@@ -1,5 +1,5 @@
 {
-	"old": {
+	"remove": {
 		"stripped": "old text here lets delete this",
 		"total": 6,
 		"grams": {
@@ -13,7 +13,7 @@
 			}
 		}
 	},
-	"new": {
+	"add": {
 		"stripped": "ebook use anyone anywhere united States most other parts world no cost with almost no restrictions whatsoever",
 		"total": 17,
 		"grams": {

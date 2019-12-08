@@ -31,7 +31,7 @@ def update():
     @throws: returns with response 400 if any error occurs
     """
     try:
-        return update_doc(app, request.args['docID'], request.json['old'], request.json['new'])
+        return update_doc(app, request.args['docID'], request.json['remove'], request.json['add'])
     except KeyError:
         return Response("Bad Request: Invalid Format", status=400, mimetype='application/json')
 
