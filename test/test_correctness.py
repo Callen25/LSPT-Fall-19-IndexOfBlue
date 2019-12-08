@@ -47,7 +47,7 @@ def test_single_doc(client):
 
 def test_multi_some(client):
     """
-    tests that multiple docs with the query get returned
+    Tests that multiple docs with the query get returned
     """
     make_mock(client)
 
@@ -59,6 +59,10 @@ def test_multi_some(client):
 
 
 def test_multi_none(client):
+    """
+    Tests that no docs return query since it doesn't appear
+    in any.
+    """
     make_mock(client)
 
     json_file = open('../test/test_files/multi_none.json')
@@ -68,6 +72,9 @@ def test_multi_none(client):
     assert len(retrieve.json['abc def']) == 0
 
 def test_ngram_single_word_all(client):
+    """
+    Tests for single word appearing in all docs
+    """
     make_mock(client)
 
     json_file = open('../test/test_files/1gram_all.json')
@@ -78,6 +85,9 @@ def test_ngram_single_word_all(client):
 
 
 def test_ngram_single_some(client):
+    """
+    Tests for single word appearing in some docs
+    """
     make_mock(client)
 
     json_file = open('../test/test_files/1gram_some.json')
@@ -88,6 +98,9 @@ def test_ngram_single_some(client):
 
 
 def test_ngram_none(client):
+    """
+    Tests for single word appearing in no docs.
+    """
     make_mock(client)
 
     json_file = open('../test/test_files/1gram_none.json')
@@ -96,11 +109,30 @@ def test_ngram_none(client):
     retrieve = client.post('/relevantDocs', json=json_data)
     assert len(retrieve.json['abcd']) == 0
 
-# def test_ngram_multi_word(client):
-#     make_mock(client)
-#
-#     json_file = open('../test/test_files/ngram_multi_word.json')
-#     json_data = json.load(json_file)
-#
-#     retrieve = client.post('/relevantDocs', json=json_data)
-#     assert len(retrieve.json['block']) == 0
+def test_ngram_multi_word(client):
+    """
+    Tests query with multiple ngrams appearing in
+    some docs
+    """
+    make_mock(client)
+
+    json_file = open('../test/test_files/ngram_multi_word.json')
+    json_data = json.load(json_file)
+
+    retrieve = client.post('/relevantDocs', json=json_data)
+    assert len(retrieve.json['block']) == 2
+
+
+def test_ngram_multi_word_none(client):
+    """
+    Tests query with multiple ngrams with none
+    appearing in any docs
+    """
+    make_mock(client)
+
+    json_file = open('../test/test_files/ngram_multi_word_none.json')
+    json_data = json.load(json_file)
+
+    retrieve = client.post('/relevantDocs', json=json_data)
+    print(retrieve.json)
+    assert len(retrieve.json['Abc def']) == 0
