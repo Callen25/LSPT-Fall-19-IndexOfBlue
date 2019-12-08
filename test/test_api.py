@@ -44,15 +44,15 @@ def test_bad_update(client):
 
 def test_blank_update(client):
     """
-    This test ensures that no error is returned for a correctly formatted json with
-    no information.
+    A request that does not change the index should result in a 400 error.
     """
     json_file = open('../test/test_files/update_bad_sample2.json')
     json_data = json.load(json_file)
 
     update = client.post('/update?docID=1', json=json_data)
 
-    assert update.status_code == 201
+    assert update.status_code == 400
+
 
 
 def test_basic_retrieve(client):
