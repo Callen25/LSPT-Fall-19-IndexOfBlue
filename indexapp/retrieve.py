@@ -96,20 +96,18 @@ def to_int_list(byte_list):
 
 def clean_positions(doc_positions):
     """
-    This takes the dictionary of results found in retrieve_for_query, and
-    converts them to an ordered list of tuples in the form (doc_id, tf-idf)
-    where higher tf-idf's come before lower ones.
+    This function cleans out the term-positions from our results. Term
+    positions are not needed by ranking.
     @param doc_positions: Old dictionary representation of results
-    @return: Ordered List of (doc_id, tf-idf) tuples
+    @return: a new dictionary with the term-positions stripped out
     """
-    results = []
+    results = {}
     # Turn doc_id:(tf-idf, tf, idf, positions[]) into List of (doc_id:{tf-idf, tf, idf})
     for k, v in doc_positions.items():
-        results.append((k, {
+        results[k] = {
             "tf-idf": v[0],
             "tf": v[1],
             "idf": v[2]
-        }))
-    # Sort list of tuples based on tf-idf score from high to low
-    results.sort(key=lambda tup: tup[1]['tf-idf'], reverse=True)
+        }
+
     return results
