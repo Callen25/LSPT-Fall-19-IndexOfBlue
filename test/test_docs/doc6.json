@@ -1,1 +1,13 @@
-{"remove": {}, "add": {"total": 3, "grams": {"1": {"ebook": [0], "use": [1], "anyone": [2]}}}}
+{
+  "remove": {},
+  "add": {
+    "total": 3,
+    "grams": {
+      "1": {
+        "ebook": [0],
+        "use": [1],
+        "anyone": [2],
+      }
+    }
+  }
+}

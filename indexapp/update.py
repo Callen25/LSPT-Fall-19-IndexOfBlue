@@ -7,25 +7,26 @@ def update_doc(app, doc_id, old_doc, new_doc):
     @param doc_id: id of document we are updating
     @param old_doc: json of old_doc to be removed from index
     @param new_doc: json of new_doc to be added to index
-    @returns: 201 status code if created successfully, 422 status code otherwise
+    @returns: 201 status code if created successfully, 400 if not formatted correctly
     @description: replaces all data from old document with that from the new document
     """
-    try:
-        if old_doc['grams']['1']:
-            remove_doc(app, doc_id, old_doc['grams']['1'])
-            if not new_doc['grams']['1'] and new_doc['total']:
-                app.index.decr('total_docs')
-    except KeyError:
-        pass
+    old_doc_valid = 'grams' in old_doc and '1' in old_doc['grams']
+    new_doc_valid = 'grams' in new_doc and '1' in new_doc['grams'] and 'total' in new_doc
 
-    try:
-        if new_doc['grams']['1'] and new_doc['total']:
-            # If there is a new doc to add, add the words and their tf scores
-            add_doc(app, doc_id, new_doc['grams']['1'], new_doc['total'])
-            if not old_doc['grams']['1']:
-                app.index.incr('total_docs')
-    except KeyError:
-        pass
+    if old_doc_valid:
+        remove_doc(app, doc_id, old_doc['grams']['1'])
+        if not new_doc_valid:
+            app.index.decr('total_docs')
+
+    if new_doc_valid:
+        # If there is a new doc to add, add the words and their tf scores
+        add_doc(app, doc_id, new_doc['grams']['1'], new_doc['total'])
+        if not old_doc_valid:
+            app.index.incr('total_docs')
+
+    # If there is nothing to add or remove, return a 400 for bad format
+    if not new_doc_valid and not old_doc_valid:
+        return Response("Invalid Format, nothing to add or remove", status=400, mimetype='application/json')
 
     return Response(f"Document: {doc_id}, successfully updated", status=201, mimetype='application/json')
 
