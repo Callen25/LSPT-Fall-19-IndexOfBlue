@@ -27,19 +27,3 @@ def test_basic_retrieve_correctness(client):
 
     retrieve = client.post('/relevantDocs', json=json_data)
     assert retrieve.json['fish sand'][0][0] == 3
-
-
-def test_total_docs_update(client):
-    json_file1 = open('../test/test_docs/doc1.json')
-    json_file2 = open('../test/test_docs/doc2.json')
-    json_file3 = open('../test/test_docs/doc3.json')
-
-    json_data1 = json.load(json_file1)
-    json_data2 = json.load(json_file2)
-    json_data3 = json.load(json_file3)
-
-    client.post('/update?docID=1', json=json_data1)
-    client.post('/update?docID=2', json=json_data2)
-    client.post('/update?docID=3', json=json_data3)
-
-    assert int(client.application.index.get('total_docs')) == 3
