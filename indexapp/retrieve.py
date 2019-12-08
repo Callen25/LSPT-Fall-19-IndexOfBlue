@@ -103,7 +103,7 @@ def clean_positions(doc_positions):
     @return: Ordered List of (doc_id, tf-idf) tuples
     """
     results = []
-    # Turn doc_id:(tf-idf, positions[]) into List of (doc_id:tf-idf)
+    # Turn doc_id:(tf-idf, tf, idf, positions[]) into List of (doc_id:{tf-idf, tf, idf})
     for k, v in doc_positions.items():
         results.append((k, {
             "tf-idf": v[0],
@@ -111,5 +111,5 @@ def clean_positions(doc_positions):
             "idf": v[2]
         }))
     # Sort list of tuples based on tf-idf score from high to low
-    results.sort(key=lambda tup: tup[1], reverse=True)
+    results.sort(key=lambda tup: tup[1]['tf-idf'], reverse=True)
     return results

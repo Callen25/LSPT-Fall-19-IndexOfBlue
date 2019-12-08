@@ -54,7 +54,6 @@ def test_blank_update(client):
     assert update.status_code == 400
 
 
-
 def test_basic_retrieve(client):
     """
     This test ensures that the correct http status code is returned for a basic
