@@ -1,1 +1,1 @@
-{"old": {}, "new": {"total": 5, "grams": {"1": {"chore": [0, 1, 2], "dolphin": [3], "ocean": [4]}}}}
+{"remove": {}, "add": {"total": 5, "grams": {"1": {"chore": [0, 1, 2], "dolphin": [3], "ocean": [4]}}}}
