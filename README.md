@@ -110,17 +110,8 @@ This endpoint is used to get relevant documents based on a list of ngrams as req
 
 Request type | Endpoint | body type
 ------------ | -------------|-----
-POST | /releva
-;:
+POST | /releventDocs | JSON
 
-
-
-
-
-::
-
-
-ntDocs | JSON
 
 POST Body:
 ```
