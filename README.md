@@ -124,13 +124,11 @@ ntDocs | JSON
 
 POST Body:
 ```
-{
-	[
-		"try this query",
-		"try this",
-		"also try this"
-	]
-}
+[
+	"try this query",
+	"try this",
+	"also try this"
+]
 ```
 
 Response:
