@@ -42,7 +42,7 @@ def test_single_doc(client):
     json_data = json.load(json_file)
 
     retrieve = client.post('/relevantDocs', json=json_data)
-    assert retrieve.json['fish sand'][0][0] == 3
+    assert '3' in retrieve.json['fish sand']
 
 
 def test_multi_some(client):
