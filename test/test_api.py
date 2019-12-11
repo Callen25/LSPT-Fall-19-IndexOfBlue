@@ -47,12 +47,12 @@ def test_bad_update(client):
 
     assert update.status_code == 400
     
-def test_bad_update_no_occurances(client):
+def test_bad_update_no_occurrences(client):
     """
     This test ensures the correct http status code is returned for a mis-formatted
     update json.
     """
-    json_file = open('../test/test_docs/bad_occurances.json')
+    json_file = open('../test/test_docs/bad_occurrences.json')
     json_data = json.load(json_file)
 
     update = client.post('/update?docID=1', json=json_data)

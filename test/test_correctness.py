@@ -53,7 +53,7 @@ def test_single_doc(client):
 
 def test_multi_some(client):
     """
-    Tests that multiple docs with the query get returned om single query
+    Tests that multiple docs with the query get returned on single query
     """
     make_mock(client)
 
