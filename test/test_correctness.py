@@ -47,7 +47,12 @@ def test_single_doc(client):
     json_data = json.load(json_file)
 
     retrieve = client.post('/relevantDocs', json=json_data)
-    assert '3' in retrieve.json['fish sand']
+    result = retrieve.json
+
+    # Document 3
+    assert result["fish sand"]['3']['tf'] == 0.04000000000000001
+    assert result["fish sand"]['3']['tf-idf'] == 0.04000000000000001
+    assert result["fish sand"]['3']['idf'] == 1.0
 
 
 def test_multi_some(client):
@@ -60,7 +65,17 @@ def test_multi_some(client):
     json_data = json.load(json_file)
 
     retrieve = client.post('/relevantDocs', json=json_data)
-    assert len(retrieve.json['dolphin ocean']) == 2
+    result = retrieve.json
+
+    # Document 2
+    assert result['dolphin ocean']['2']['tf'] == 0.0625
+    assert result['dolphin ocean']['2']['tf-idf'] == 0.22499999999999998
+    assert result['dolphin ocean']['2']['idf'] == 3.5999999999999996
+
+    # Document 5
+    assert result['dolphin ocean']['5']['tf'] == 0.04000000000000001
+    assert result['dolphin ocean']['5']['tf-idf'] == 0.14400000000000002
+    assert result['dolphin ocean']['5']['idf'] == 3.5999999999999996
 
 
 def test_multi_none(client):
@@ -74,6 +89,7 @@ def test_multi_none(client):
     json_data = json.load(json_file)
 
     retrieve = client.post('/relevantDocs', json=json_data)
+
     assert len(retrieve.json['abc def']) == 0
 
 
@@ -87,7 +103,32 @@ def test_ngram_single_word_all(client):
     json_data = json.load(json_file)
 
     retrieve = client.post('/relevantDocs', json=json_data)
-    assert len(retrieve.json['ocean']) == 5
+    result = retrieve.json
+
+    # Document 1
+    assert result['ocean']['1']['tf'] == 0.2
+    assert result['ocean']['1']['tf-idf'] == 0.24
+    assert result['ocean']['1']['idf'] == 1.2
+
+    # Document 2
+    assert result['ocean']['2']['tf'] == 0.25
+    assert result['ocean']['2']['tf-idf'] == 0.3
+    assert result['ocean']['2']['idf'] == 1.2
+
+    # Document 3
+    assert result['ocean']['3']['tf'] == 0.2
+    assert result['ocean']['3']['tf-idf'] == 0.24
+    assert result['ocean']['3']['idf'] == 1.2
+
+    # Document 4
+    assert result['ocean']['4']['tf'] == 0.2
+    assert result['ocean']['4']['tf-idf'] == 0.24
+    assert result['ocean']['4']['idf'] == 1.2
+
+    # Document 5
+    assert result['ocean']['5']['tf'] == 0.2
+    assert result['ocean']['5']['tf-idf'] == 0.24
+    assert result['ocean']['5']['idf'] == 1.2
 
 
 def test_ngram_single_some(client):
@@ -100,7 +141,17 @@ def test_ngram_single_some(client):
     json_data = json.load(json_file)
 
     retrieve = client.post('/relevantDocs', json=json_data)
-    assert len(retrieve.json['block']) == 2
+    result = retrieve.json
+
+    # Document 2
+    assert result['block']['2']['tf'] == 0.25
+    assert result['block']['2']['tf-idf'] == 0.75
+    assert result['block']['2']['idf'] == 3.0
+
+    # Document 3
+    assert result['block']['3']['tf'] == 0.2
+    assert result['block']['3']['tf-idf'] == 0.6000000000000001
+    assert result['block']['3']['idf'] == 3.0
 
 
 def test_ngram_none(client):
@@ -127,7 +178,17 @@ def test_ngram_multi_word(client):
     json_data = json.load(json_file)
 
     retrieve = client.post('/relevantDocs', json=json_data)
-    assert len(retrieve.json['block']) == 2
+    result = retrieve.json
+
+    # Document 2
+    assert result['block']['2']['tf'] == 0.25
+    assert result['block']['2']['tf-idf'] == 0.75
+    assert result['block']['2']['idf'] == 3.0
+
+    # Document 3
+    assert result['block']['3']['tf'] == 0.2
+    assert result['block']['3']['tf-idf'] == 0.6000000000000001
+    assert result['block']['3']['idf'] == 3.0
 
 
 def test_ngram_multi_word_none(client):
