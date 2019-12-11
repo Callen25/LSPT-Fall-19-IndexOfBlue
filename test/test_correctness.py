@@ -1,3 +1,9 @@
+"""
+Overview
+This file is responsible for making sure the actual values
+retrieved effect the index in the correct manner
+"""
+
 import pytest
 from indexapp import create_app
 import json
@@ -31,7 +37,7 @@ def make_mock(client):
 def test_single_doc(client):
     """
     This test checks to confirm that the retrieval returns correct data
-    when there is a single match.
+    when there is a single match from single query.
     """
     json_file = open('../test/test_docs/doc1.json')
     json_data = json.load(json_file)
@@ -47,7 +53,7 @@ def test_single_doc(client):
 
 def test_multi_some(client):
     """
-    Tests that multiple docs with the query get returned
+    Tests that multiple docs with the query get returned on single query
     """
     make_mock(client)
 

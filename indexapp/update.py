@@ -1,3 +1,9 @@
+"""
+Overview
+This file contains all the necessary helper functions responsible
+for update, aka adding, removing, and updating values in the index
+"""
+
 from flask import Response
 
 
@@ -12,7 +18,7 @@ def update_doc(app, doc_id, old_doc, new_doc):
     """
     old_doc_valid = 'grams' in old_doc and '1' in old_doc['grams']
     new_doc_valid = 'grams' in new_doc and '1' in new_doc['grams'] and 'total' in new_doc
-
+    
     if old_doc_valid:
         remove_doc(app, doc_id, old_doc['grams']['1'])
         if not new_doc_valid:

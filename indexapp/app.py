@@ -1,3 +1,11 @@
+"""
+Overview:
+This file contains the starting point where all of the endpoints
+are initally retrieved from. Additional endpoints should be added
+here as new features are requested along with accomponying python file
+to implement the feature set and helper funcitons
+"""
+
 from flask import Blueprint, current_app, request, Response
 from .update import update_doc
 from .retrieve import retrieve_docs
