@@ -1,3 +1,9 @@
+"""
+Overview
+This file contains all the necessary helper functions responsible
+for releventDocs, aka retrieving data out of the index
+"""
+
 from flask import jsonify
 
 

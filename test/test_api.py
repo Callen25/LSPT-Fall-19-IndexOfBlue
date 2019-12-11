@@ -1,3 +1,9 @@
+"""
+Overview
+This test file is responsible for testing the api and checking if
+the flask app in able to respond in the simple cases
+"""
+
 import pytest
 from indexapp import create_app
 import json
@@ -57,6 +63,7 @@ def test_bad_update_no_occurances(client):
 def test_blank_update(client):
     """
     A request that does not change the index should result in a 400 error.
+    Does not contain any values that need to added or removed
     """
     json_file = open('../test/test_files/update_bad_sample2.json')
     json_data = json.load(json_file)
@@ -65,6 +72,17 @@ def test_blank_update(client):
 
     assert update.status_code == 400
 
+def test_invalid_remove(client):
+    """
+    A request that attempts to remove words that do not exist.
+    Returns 201 and does not crash the index
+    """
+    json_file = open('../test/test_files/not_present.json')
+    json_data = json.load(json_file)
+
+    update = client.post('/update?docID=1', json=json_data)
+
+    assert update.status_code == 201
 
 def test_basic_retrieve(client):
     """
