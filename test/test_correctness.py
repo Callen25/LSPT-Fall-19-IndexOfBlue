@@ -2,6 +2,8 @@
 Overview
 This file is responsible for making sure the actual values
 retrieved effect the index in the correct manner
+
+Setup for all tests: make_mock from test_docs
 """
 
 import pytest
@@ -37,6 +39,9 @@ def test_single_doc(client):
     """
     This test checks to confirm that the retrieval returns correct data
     when there is a single match from single query.
+    Setup: make_mock
+    Modify: test_doc1 on update
+    Assert: 3 in fish sand
     """
     json_file = open('../test/test_docs/doc1.json')
     json_data = json.load(json_file)
@@ -53,6 +58,9 @@ def test_single_doc(client):
 def test_multi_some(client):
     """
     Tests that multiple docs with the query get returned on single query
+    Setup: make_mock
+    Modify: multiple_match on releventDocs
+    Assert: 2 docs returned for dolphin ocean
     """
     make_mock(client)
 
@@ -67,6 +75,9 @@ def test_multi_none(client):
     """
     Tests that no docs return query since it doesn't appear
     in any.
+    Setup: make_mock
+    Modify: multi_none on releventDocs
+    Assert: 0 docs returned for abc def
     """
     make_mock(client)
 
@@ -80,6 +91,9 @@ def test_multi_none(client):
 def test_ngram_single_word_all(client):
     """
     Tests for single word appearing in all docs
+    Setup: make_mock
+    Modify: 1gram_all on releventDocs
+    Assert: 5 docs returned for ocean
     """
     make_mock(client)
 
@@ -93,6 +107,9 @@ def test_ngram_single_word_all(client):
 def test_ngram_single_some(client):
     """
     Tests for single word appearing in some docs
+    Setup: make_mock
+    Modify: 1gram_some on releventDocs
+    Assert: 2 docs returned for block
     """
     make_mock(client)
 
@@ -106,6 +123,9 @@ def test_ngram_single_some(client):
 def test_ngram_none(client):
     """
     Tests for single word appearing in no docs.
+    Setup: make_mock
+    Modify: 1gram_none on releventDocs
+    Assert: 0 docs returned for abcd
     """
     make_mock(client)
 
@@ -120,6 +140,9 @@ def test_ngram_multi_word(client):
     """
     Tests query with multiple ngrams appearing in
     some docs
+    Setup: make_mock
+    Modify: ngram_multi_word on releventDocs
+    Assert: 2 docs returned for block
     """
     make_mock(client)
 
@@ -134,6 +157,9 @@ def test_ngram_multi_word_none(client):
     """
     Tests query with multiple ngrams with none
     appearing in any docs
+    Setup: make_mock
+    Modify: ngram_multi_word_none on releventDocs
+    Assert: 0 docs returned for Abc def
     """
     make_mock(client)
 
@@ -148,6 +174,9 @@ def test_total_docs_update(client):
     """
     This test ensures that when new documents are added, the total_docs count
     is incremented
+    Setup: make_mock
+    Modify: None
+    Assert: total_docs = 6
     """
     make_mock(client)
     assert int(client.application.index.get('total_docs')) == 6
