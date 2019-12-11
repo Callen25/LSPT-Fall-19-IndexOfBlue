@@ -30,8 +30,7 @@ def make_mock(client):
     for i in range(6):
         json_file = open(f"../test/test_docs/doc{i + 1}.json")
         json_data = json.load(json_file)
-        post = client.post(f"/update?docID={i + 1}", json=json_data)
-        print(post.status_code)
+        client.post(f"/update?docID={i + 1}", json=json_data)
 
 
 def test_single_doc(client):
