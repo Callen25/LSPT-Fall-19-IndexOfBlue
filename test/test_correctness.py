@@ -41,7 +41,7 @@ def test_single_doc(client):
     when there is a single match from single query.
     Setup: make_mock
     Modify: test_doc1 on update
-    Assert: 3 in fish sand
+    Assert: 3 in fish sand, compare to tf-ifd, tf, idf values for given doc
     """
     json_file = open('../test/test_docs/doc1.json')
     json_data = json.load(json_file)
@@ -65,7 +65,7 @@ def test_multi_some(client):
     Tests that multiple docs with the query get returned on single query
     Setup: make_mock
     Modify: multiple_match on releventDocs
-    Assert: 2 docs returned for dolphin ocean
+    Assert: 2 docs returned for dolphin ocean, compare to tf-ifd, tf, idf values for given doc
     """
     make_mock(client)
 
@@ -109,7 +109,7 @@ def test_ngram_single_word_all(client):
     Tests for single word appearing in all docs
     Setup: make_mock
     Modify: 1gram_all on releventDocs
-    Assert: 5 docs returned for ocean
+    Assert: 5 docs returned for ocean, compare to tf-ifd, tf, idf values for given doc
     """
     make_mock(client)
 
@@ -150,7 +150,7 @@ def test_ngram_single_some(client):
     Tests for single word appearing in some docs
     Setup: make_mock
     Modify: 1gram_some on releventDocs
-    Assert: 2 docs returned for block
+    Assert: 2 docs returned for block, compare to tf-ifd, tf, idf values for given doc
     """
     make_mock(client)
 
@@ -193,7 +193,7 @@ def test_ngram_multi_word(client):
     some docs
     Setup: make_mock
     Modify: ngram_multi_word on releventDocs
-    Assert: 2 docs returned for block
+    Assert: 2 docs returned for block, compare to tf-ifd, tf, idf values for given doc
     """
     make_mock(client)
 
