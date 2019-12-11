@@ -1,1 +1,15 @@
-{"old": {}, "new": {"total": 5, "grams": {"1": {"block": [0], "ocean": [1], "star": [2], "pick": [3], "spoon": [4]}}}}
+{
+  "remove": {},
+  "add": {
+    "total": 5,
+    "grams": {
+      "1": {
+        "block": [0],
+        "ocean": [1],
+        "star": [2],
+        "pick": [3],
+        "spoon": [4]
+      }
+    }
+  }
+}

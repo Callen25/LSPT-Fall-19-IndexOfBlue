@@ -1,0 +1,19 @@
+{
+	"remove": {
+		"stripped": "old text here lets delete this",
+		"total": 6,
+		"grams": {
+			"1": {
+				"random1": [0],
+				"random2": [1],
+				"random3": [2],
+				"random4": [3],
+				"random5": [4],
+				"random6": [5]
+			}
+		}
+	},
+	
+	"title": "Hello World"
+	
+}

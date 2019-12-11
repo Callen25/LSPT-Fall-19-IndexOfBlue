@@ -1,3 +1,11 @@
+"""
+Overview:
+This file contains the starting point where all of the endpoints
+are initally retrieved from. Additional endpoints should be added
+here as new features are requested along with accomponying python file
+to implement the feature set and helper funcitons
+"""
+
 from flask import Blueprint, current_app, request, Response
 from .update import update_doc
 from .retrieve import retrieve_docs
@@ -31,7 +39,15 @@ def update():
     @throws: returns with response 400 if any error occurs
     """
     try:
-        return update_doc(app, request.args['docID'], request.json['old'], request.json['new'])
+        if 'remove' in request.json:
+            remove = request.json['remove']
+        else:
+            remove = {}
+        if 'add' in request.json:
+            add = request.json['add']
+        else:
+            add = {}
+        return update_doc(app, request.args['docID'], remove, add)
     except KeyError:
         return Response("Bad Request: Invalid Format", status=400, mimetype='application/json')
 

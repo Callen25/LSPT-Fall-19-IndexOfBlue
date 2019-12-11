@@ -2,19 +2,36 @@
 
 ## Getting Started
 
-To install all the necessary packages, run **pip install -r requirements.txt**. (We recommend using a virtual environment)
+#### Redis Setup
 
 To run locally, Redis needs to be installed. Details about doing so can be seen [here](https://redis.io/topics/quickstart)
 
 Once Redis is installed, run it with **redis-server** (it should be running on port 6379)
 
-In the indexapp directory set the Flask App with **FLASK_APP=__init__**
+### Python Environment Setup
+
+To install all the necessary packages, run **pip install -r requirements.txt**. (We recommend using a virtual environment)
+
+Before running any tests or running locally, install the
+flask app itself to your virtual environment with **pip install .** in the root directory
+
+#### Running locally
+
+In the indexapp directory set the Flask App by running **export FLASK_APP=\_\_init\_\_**
 
 Then run with **flask run**
 
 This should work with other services, it runs on port 5000 by default
 
+#### Running unit tests
+
 To run unit tests, navigate to the /test directory and run **pytest**
+
+#### Running in production
+
+We use [waitress](https://docs.pylonsproject.org/projects/waitress/en/stable/) as our WSGI server
+
+To run an instance of this app in production, run **setsid waitress-serve --call 'indexapp:create_app**
 
 ## API Reference
 
@@ -33,13 +50,15 @@ Request type | Endpoint | Arguments | body type
 ------------ | -------------|-------|----------
 POST | /update | docID | JSON
 
-docID is a required query parameter that specifies which docuemt will be referenced
+docID is a required query parameter that specifies which document will be referenced
 
-If you want to add a document that does not exist remove should be empty<br />
-If you want to remove a document that add should be empty<br />
-If you want to update an existing specify what should be added and what should be removed<br />
+add and remove are keys that specify what should be added and what should
+be removed from the index
 
-JSON BODY EXAMPE
+If you only want to add something, just leave remove empty
+If you only want to remove something, just leave add empty
+
+JSON BODY EXAMPLE
 ```
 {
 	"add": {
@@ -86,22 +105,21 @@ JSON BODY EXAMPE
 
 ### Retrieve from index
 
-This endpoint is used to get relevent documents based on a list of ngrams as requested by Ranking
+This endpoint is used to get relevant documents based on a list of ngrams as requested by Ranking
 
 
 Request type | Endpoint | body type
 ------------ | -------------|-----
 POST | /releventDocs | JSON
 
+
 POST Body:
 ```
-{
-	[
-		"try this query",
-		"try this",
-		"also try this"
-	]
-}
+[
+	"try this query",
+	"try this",
+	"also try this"
+]
 ```
 
 Response:

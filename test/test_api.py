@@ -1,3 +1,9 @@
+"""
+Overview
+This test file is responsible for testing the api and checking if
+the flask app in able to respond in the simple cases
+"""
+
 import pytest
 from indexapp import create_app
 import json
@@ -20,6 +26,9 @@ def test_basic_update(client):
     """
     This test ensures that the correct http status code is returned for a basic
     index update.
+    Setup: make_mock
+    Modify: update_sample1 on update
+    Assert: status code 201
     """
     json_file = open('../test/test_files/update_sample1.json')
     json_data = json.load(json_file)
@@ -33,6 +42,9 @@ def test_bad_update(client):
     """
     This test ensures the correct http status code is returned for a mis-formatted
     update json.
+    Setup: make_mock
+    Modify: update_bad_sample1 on update
+    Assert: status code 400
     """
     json_file = open('../test/test_files/update_bad_sample1.json')
     json_data = json.load(json_file)
@@ -42,12 +54,47 @@ def test_bad_update(client):
     assert update.status_code == 400
 
 
+def test_bad_update_no_occurrences(client):
+    """
+    This test ensures the correct http status code is returned for a mis-formatted
+    update json.
+    Setup: make_mock
+    Modify: bad_occurrences on update
+    Assert: status code 400
+    """
+    json_file = open('../test/test_docs/bad_occurrences.json')
+    json_data = json.load(json_file)
+
+    update = client.post('/update?docID=1', json=json_data)
+
+    assert update.status_code == 400
+
+
 def test_blank_update(client):
     """
-    This test ensures that no error is returned for a correctly formatted json with
-    no information.
+    A request that does not change the index should result in a 400 error.
+    Does not contain any values that need to added or removed
+    Setup: make_mock
+    Modify: update_bad_sample2 on update
+    Assert: status code 400
     """
     json_file = open('../test/test_files/update_bad_sample2.json')
+    json_data = json.load(json_file)
+
+    update = client.post('/update?docID=1', json=json_data)
+
+    assert update.status_code == 400
+
+
+def test_invalid_remove(client):
+    """
+    A request that attempts to remove words that do not exist.
+    Returns 201 and does not crash the index
+    Setup: make_mock
+    Modify: not_present on update
+    Assert: status code 201
+    """
+    json_file = open('../test/test_files/not_present.json')
     json_data = json.load(json_file)
 
     update = client.post('/update?docID=1', json=json_data)
@@ -59,6 +106,9 @@ def test_basic_retrieve(client):
     """
     This test ensures that the correct http status code is returned for a basic
     index retrieval.
+    Setup: make_mock
+    Modify: retrieve_sample1 on relevantDocs
+    Assert: status code 200
     """
     json_file = open('../test/test_files/update_sample1.json')
     json_data = json.load(json_file)
