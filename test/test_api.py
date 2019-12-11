@@ -46,7 +46,8 @@ def test_bad_update(client):
     update = client.post('/update?docID=1', json=json_data)
 
     assert update.status_code == 400
-    
+
+
 def test_bad_update_no_occurrences(client):
     """
     This test ensures the correct http status code is returned for a mis-formatted
@@ -72,6 +73,7 @@ def test_blank_update(client):
 
     assert update.status_code == 400
 
+
 def test_invalid_remove(client):
     """
     A request that attempts to remove words that do not exist.
@@ -83,6 +85,7 @@ def test_invalid_remove(client):
     update = client.post('/update?docID=1', json=json_data)
 
     assert update.status_code == 201
+
 
 def test_basic_retrieve(client):
     """
